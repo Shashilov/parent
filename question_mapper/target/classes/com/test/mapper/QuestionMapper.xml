@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.mapper.QuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.test.pojo.Question" >
+    <id column="questionId" property="questionid" jdbcType="INTEGER" />
+    <result column="qustionDesc" property="qustiondesc" jdbcType="VARCHAR" />
+    <result column="questionStartTime" property="questionstarttime" jdbcType="TIMESTAMP" />
+    <result column="questionPic" property="questionpic" jdbcType="VARCHAR" />
+    <result column="propertyId" property="propertyid" jdbcType="INTEGER" />
+    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+    <result column="optionA" property="optiona" jdbcType="VARCHAR" />
+    <result column="optionB" property="optionb" jdbcType="VARCHAR" />
+    <result column="optionC" property="optionc" jdbcType="VARCHAR" />
+    <result column="optionD" property="optiond" jdbcType="VARCHAR" />
+    <result column="rightOption" property="rightoption" jdbcType="VARCHAR" />
+    <result column="questionStatus" property="questionstatus" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    questionId, qustionDesc, questionStartTime, questionPic, propertyId, typeId, optionA, 
+    optionB, optionC, optionD, rightOption, questionStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.test.pojo.QuestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from question
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from question
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.test.pojo.QuestionExample" >
+    delete from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.test.pojo.Question" >
+    insert into question (questionId, qustionDesc, questionStartTime, 
+      questionPic, propertyId, typeId, 
+      optionA, optionB, optionC, 
+      optionD, rightOption, questionStatus
+      )
+    values (#{questionid,jdbcType=INTEGER}, #{qustiondesc,jdbcType=VARCHAR}, #{questionstarttime,jdbcType=TIMESTAMP}, 
+      #{questionpic,jdbcType=VARCHAR}, #{propertyid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
+      #{optiona,jdbcType=VARCHAR}, #{optionb,jdbcType=VARCHAR}, #{optionc,jdbcType=VARCHAR}, 
+      #{optiond,jdbcType=VARCHAR}, #{rightoption,jdbcType=VARCHAR}, #{questionstatus,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.pojo.Question" >
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        questionId,
+      </if>
+      <if test="qustiondesc != null" >
+        qustionDesc,
+      </if>
+      <if test="questionstarttime != null" >
+        questionStartTime,
+      </if>
+      <if test="questionpic != null" >
+        questionPic,
+      </if>
+      <if test="propertyid != null" >
+        propertyId,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="optiona != null" >
+        optionA,
+      </if>
+      <if test="optionb != null" >
+        optionB,
+      </if>
+      <if test="optionc != null" >
+        optionC,
+      </if>
+      <if test="optiond != null" >
+        optionD,
+      </if>
+      <if test="rightoption != null" >
+        rightOption,
+      </if>
+      <if test="questionstatus != null" >
+        questionStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="qustiondesc != null" >
+        #{qustiondesc,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstarttime != null" >
+        #{questionstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionpic != null" >
+        #{questionpic,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyid != null" >
+        #{propertyid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="optiona != null" >
+        #{optiona,jdbcType=VARCHAR},
+      </if>
+      <if test="optionb != null" >
+        #{optionb,jdbcType=VARCHAR},
+      </if>
+      <if test="optionc != null" >
+        #{optionc,jdbcType=VARCHAR},
+      </if>
+      <if test="optiond != null" >
+        #{optiond,jdbcType=VARCHAR},
+      </if>
+      <if test="rightoption != null" >
+        #{rightoption,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstatus != null" >
+        #{questionstatus,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.test.pojo.QuestionExample" resultType="java.lang.Integer" >
+    select count(*) from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update question
+    <set >
+      <if test="record.questionid != null" >
+        questionId = #{record.questionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qustiondesc != null" >
+        qustionDesc = #{record.qustiondesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionstarttime != null" >
+        questionStartTime = #{record.questionstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.questionpic != null" >
+        questionPic = #{record.questionpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyid != null" >
+        propertyId = #{record.propertyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        typeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.optiona != null" >
+        optionA = #{record.optiona,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optionb != null" >
+        optionB = #{record.optionb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optionc != null" >
+        optionC = #{record.optionc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optiond != null" >
+        optionD = #{record.optiond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightoption != null" >
+        rightOption = #{record.rightoption,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionstatus != null" >
+        questionStatus = #{record.questionstatus,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update question
+    set questionId = #{record.questionid,jdbcType=INTEGER},
+      qustionDesc = #{record.qustiondesc,jdbcType=VARCHAR},
+      questionStartTime = #{record.questionstarttime,jdbcType=TIMESTAMP},
+      questionPic = #{record.questionpic,jdbcType=VARCHAR},
+      propertyId = #{record.propertyid,jdbcType=INTEGER},
+      typeId = #{record.typeid,jdbcType=INTEGER},
+      optionA = #{record.optiona,jdbcType=VARCHAR},
+      optionB = #{record.optionb,jdbcType=VARCHAR},
+      optionC = #{record.optionc,jdbcType=VARCHAR},
+      optionD = #{record.optiond,jdbcType=VARCHAR},
+      rightOption = #{record.rightoption,jdbcType=VARCHAR},
+      questionStatus = #{record.questionstatus,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.pojo.Question" >
+    update question
+    <set >
+      <if test="qustiondesc != null" >
+        qustionDesc = #{qustiondesc,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstarttime != null" >
+        questionStartTime = #{questionstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionpic != null" >
+        questionPic = #{questionpic,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyid != null" >
+        propertyId = #{propertyid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="optiona != null" >
+        optionA = #{optiona,jdbcType=VARCHAR},
+      </if>
+      <if test="optionb != null" >
+        optionB = #{optionb,jdbcType=VARCHAR},
+      </if>
+      <if test="optionc != null" >
+        optionC = #{optionc,jdbcType=VARCHAR},
+      </if>
+      <if test="optiond != null" >
+        optionD = #{optiond,jdbcType=VARCHAR},
+      </if>
+      <if test="rightoption != null" >
+        rightOption = #{rightoption,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstatus != null" >
+        questionStatus = #{questionstatus,jdbcType=BIT},
+      </if>
+    </set>
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.pojo.Question" >
+    update question
+    set qustionDesc = #{qustiondesc,jdbcType=VARCHAR},
+      questionStartTime = #{questionstarttime,jdbcType=TIMESTAMP},
+      questionPic = #{questionpic,jdbcType=VARCHAR},
+      propertyId = #{propertyid,jdbcType=INTEGER},
+      typeId = #{typeid,jdbcType=INTEGER},
+      optionA = #{optiona,jdbcType=VARCHAR},
+      optionB = #{optionb,jdbcType=VARCHAR},
+      optionC = #{optionc,jdbcType=VARCHAR},
+      optionD = #{optiond,jdbcType=VARCHAR},
+      rightOption = #{rightoption,jdbcType=VARCHAR},
+      questionStatus = #{questionstatus,jdbcType=BIT}
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+</mapper>
